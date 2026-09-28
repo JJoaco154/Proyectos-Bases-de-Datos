@@ -32,7 +32,7 @@ Este proyecto modela y gestiona la logística de un festival musical, controland
 Diseño de base de datos para la administración académica de una institución escolar, encargado del control de matrículas, asignación de docentes a cursos, y auditorías de notas y novedades.
 
 ###  Ficha Técnica
-* **Motor:** PostgreSQL (v15+)
+* **Motor:** PostgreSQL 
 * **Paradigma:** Relacional usando identidad generada por sistema (`GENERATED ALWAYS AS IDENTITY`).
 
 ###  Estructura de Tablas
