@@ -8,7 +8,7 @@ Este repositorio reúne dos proyectos prácticos de diseño, implementación y p
 Este proyecto modela y gestiona la logística de un festival musical, controlando desde el registro de artistas y escenarios hasta la auditoría automática de los tiempos de presentación y pagos.
 
 ###  Ficha Técnica
-* **Motor:** MySQL (v8.0+)
+* **Motor:** MySQL 
 * **Paradigma:** Relacional con integridad referencial estricta y lógica programada integrada.
 
 ###  Estructura de Tablas
