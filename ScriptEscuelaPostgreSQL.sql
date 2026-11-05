@@ -70,6 +70,31 @@ create or replace view vista_resumen_alumnos as(
       left join profesor as p on p.id_profesor = c.id_profesor_fk                 
 );
 
+-- Vista mas funcion ventana:
+create view vista_ranking_alumnos_curso as(
+    with notas_alumnos_curso as(
+        select a.id_alumno, concat(a.nombre, ' ',a.apellido) as alumno, a.nota_final, c.id_curso, c.nombre as curso
+        from alumno as a 
+        join curso as c on a.id_alumno = c.id_alumno
+    ),
+    calculo_nota_max as(
+    select alumno, nota_final, id_curso, curso,
+           max(nota_final) over(partition by id_curso) as nota_maxima
+	from notas_alumnos_curso
+    )
+    select curso, alumno, nota_final, (nota_maxima - nota_final) as diferencia_con_nota_max,
+           dense_rank() over(partition by curso order by nota_final desc) as ranking
+    from calculo_nota_max
+);
+
+create view vista_analisis_salarial_profesores as(
+	select id_profesor, nombre, apellido, materia, sueldo, 
+           avg(sueldo) over (partition by materia) as sueldo_promedio_materia,
+           lag(sueldo, 1, 0.00) over (partition by materia order by sueldo asc) as sueldo_anterior_materia,
+          (sueldo - lag(sueldo, 1, sueldo) over (partition by materia order by sueldo asc)) as incremento_respecto_anterior
+    from profesor
+);
+
 
 -- UDF:
 create or replace function fn_promedio_profe(p_id_prfe int)
